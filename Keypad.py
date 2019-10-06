@@ -31,7 +31,7 @@ class Keypad:
                     if GPIO.input(column_pin) == GPIO.HIGH:
                         # TODO: calculate and return signal
                         return 1
-                        GPIO.output(row_pin, GPIO.LOW)
+                        GPIO.output(row_pin, GPIO.LOW)  # TODO: this line is unreachable
                         break
 
     def get_next_signal(self):

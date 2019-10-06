@@ -1,6 +1,7 @@
 """ led board """
 import RPi.GPIO as GPIO
 import time
+import random as rand
 
 class LEDBoard:
     """ LED Board class """
@@ -16,8 +17,7 @@ class LEDBoard:
         """ Set the proper mode via: GPIO.setmode(GPIO.BCM)
         The pin settings corresponding to each LED should be saved in a dictionary
         or array such that when the agent requests lighting of the kth LED, your code can fetch the kth
-        setting set and send it to a method that performs the proper in/out and high/low assignments.
-        """
+        setting set and send it to a method that performs the proper in/out and high/low assignments. """
         self.mode = GPIO.BCM
         GPIO.setmode(GPIO.BCM)  # Might use GPIO.BOARD instead, depends on the input pins
         self.LED_pin_settings = [  # 0=LOW, 1=HIGH and -1=INPUT
@@ -41,35 +41,40 @@ class LEDBoard:
         (where k is an argument of the method and led specifies which LED to light), by making the appropriate
         combination of input and output declarations,
         and then making the appropriate HIGH /
-        LOW settings on the output pins.
-        """
+        LOW settings on the output pins. """
         for pin_index, pin_state in enumerate(self.LED_pin_settings[led]):
             self.set_pin(pin_index, pin_state)
         time.sleep(k)
-        for pin_index, pin_state in enumerate(self.LED_pin_settings[led]):
+        for pin_index in self.LED_pin_settings[led]:
             self.set_pin(pin_index, -1)  # reset the pins to turn off the LED
 
     def flash_all_leds(self):
-        """ Flash all 6 LEDs on and off, used when the user enters the wrong passcode """
-        # TODO
+        """ Flash all 6 LEDs on and off, used when the user enters the wrong passcode.
+        To light more than one at a time, you need to run a refresh loop that
+        keeps the desired state of the LEDs in an array and refreshes the display,
+        turning on the LEDs that need to be on before moving on to the next.
+        It must do this sufficiently fast so that it appears that more than one of the LEDs is on at the same time.
+        The more LEDs you use when it comes to making it appear that more than one LED is on at a time,
+        the less time the LED will actually be lit, and the dimmer the LEDs will become."""
+        for times in range(3):  # flash all the LEDs three times on and off
+            for rounds in range(50):  # probably have to fine-tune the amount of rounds
+                for led in range(6):
+                    self.light_led(led, 0.02)  # probably have to fine-tune the input-time
+            time.sleep(0.4)  # probably have to fine-tune the time between flashes
 
     def twinkle_all_leds(self):
         """  The lightshow to run when the user successfully authenticates """
-        # TODO
+        for rounds in range(40):  # probably have to fine-tune the amount of rounds
+            self.light_led(rand.randint(0, 5), 0.2)  # probably have to fine-tune the input-time
 
     def startup_lightshow(self):
         """ The lightshow sequence to run when the keypad is started """
-        for rounds in range(3):  # clockwise
-            for index1 in range(6):
-                for index2 in range(3):
-                    self.set_pin(index2, self.LED_pin_settings[index1][index2])
-                time.sleep(0.15)
+        for rounds in range(3):  # 3 rounds, clockwise
+            for led in range(6):
+                self.light_led(led, 0.15)  # probably have to fine-tune the input-time
 
     def shutdown_lightshow(self):
         """The lightshow sequence to run when the keypad is shut down"""
         for rounds in range(3):
-            for index1 in range(5, -1, -1):  # counterclockwise
-                for index2 in range(3):
-                    self.set_pin(index2, self.LED_pin_settings[index1][index2])
-                time.sleep(0.15)
-
+            for led in range(5, -1, -1):  # 3 rounds,  counterclockwise
+                self.light_led(led, 0.15)  # probably have to fine-tune the input-time
