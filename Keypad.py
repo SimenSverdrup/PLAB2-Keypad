@@ -14,7 +14,7 @@ class Keypad:
 
     def __init__(self):
         """ Set the mode and the row pins as outputs and the column pins as inputs """
-        GPIO.setmode(GPIO.BCM)
+        #GPIO.setmode(GPIO.BCM)
         for rp in range(0, 4):
             GPIO.setup(self.r_pins[rp], GPIO.OUT)
         for cp in range(0, 3):

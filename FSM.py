@@ -58,7 +58,8 @@ class FiniteStateMachine:
         print("START FSM MAIN LOOP")
         self.state = "s0"
         while self.state != "s1":
-            signal = self.get_next_signal
+            signal = self.get_next_signal()
+            print(signal)
             if signal:
                 self.run_rules(signal)
         print("Final state reached.")
