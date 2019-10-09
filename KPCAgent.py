@@ -89,5 +89,5 @@ class KPCAgent:
         self.led_board_pointer.twinkle_all_leds()
 
     def shutdown_lightshow(self):
-        """ Call the LED Board to initiate the ”power down” lighting sequence. """
+        """ Call the LED Board to initiate the power down lighting sequence. """
         self.led_board_pointer.shutdown_lightshow()
