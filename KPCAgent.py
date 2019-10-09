@@ -2,7 +2,7 @@
 
 from Keypad import Keypad
 from LEDBoard import LEDBoard
-from FSM import FSM
+from FSM import FiniteStateMachine
 
 
 class KPCAgent:
