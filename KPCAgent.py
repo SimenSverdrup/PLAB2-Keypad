@@ -71,11 +71,9 @@ class KPCAgent:
     def is_legal_passcode(self, passcode):
         """ Returns true if passcode is legal, false if not.
          A legal password should be at least 4 digits long and should contain no symbols other than the digits 0-9."""
-        if (len(passcode) >= 4) and passcode.isdigit():
-            # Return true if all characters in the string are digits
-            # and there is at least one character, false otherwise
-            return True
-        return False
+        return (len(passcode) >= 4) and passcode.isdigit()
+        # Return true if all characters in the string are digits
+        # and there is at least one character, false otherwise
 
     def light_one_led(self, Lid, Ldur):
         """  Using values stored in the Lid and Ldur slots,
