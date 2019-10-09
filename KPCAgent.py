@@ -17,6 +17,7 @@ class KPCAgent:
 
     def __init__(self):
         """ init """
+        print("INIT KPC")
         self.keypad_pointer = Keypad()
         self.led_board_pointer = LEDBoard()
         self.init_passcode_entry()

@@ -12,6 +12,7 @@ class Keypad:
 
     def __init__(self):
         """ Set the mode and the row pins as outputs and the column pins as inputs """
+        print("INIT KEYPAD")
         GPIO.setmode(GPIO.BCM)
         # TODO: range needs correction
         for rp in range(0, 4):
