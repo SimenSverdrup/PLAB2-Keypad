@@ -18,10 +18,11 @@ class KPCAgent:
 
     def __init__(self):
         """ init """
+        print("INIT KPC AGENT")
         self.keypad_pointer = Keypad()
         self.led_board_pointer = LEDBoard()
-        FiniteStateMachine(self)
         self.init_passcode_entry()
+        FiniteStateMachine(self)
 
     def init_passcode_entry(self):
         """ Clear the passcode buffer and initiate a power up lighting sequence on the LED Board """
@@ -32,6 +33,8 @@ class KPCAgent:
         # TODO: function need configuration, override_signal might have been misunderstood
         #  self.input_buffer should be filled here, I think
         """ Return the override-signal or query keypad for next signal """
+        print("KPC GET SIGNAL")
+
         if self.override_signal:
             return_signal = self.override_signal
             self.override_signal = None

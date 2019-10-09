@@ -23,18 +23,23 @@ class Keypad:
     def do_polling(self):
         """ Use nested loops (discussed above) to determine the
         key currently being pressed on the keypad. """
+        print("KAYPAD DO POLLING")
         for rp in range(0, 4):
             GPIO.output(self.r_pins[rp], GPIO.HIGH)
             for cp in range(0, 3):
                 if GPIO.input(self.c_pins[cp]) == GPIO.HIGH:
+                    print("FOUND HIGHS - SLEEP")
                     time.sleep(10)
+                    print("DONT SLEEP")
                     if GPIO.input(self.c_pins[cp]) == GPIO.HIGH:
+                        print("SHOULD RETURN")
                         print(self.keypad[rp][cp])
                         return self.keypad[rp][cp]
             GPIO.output(self.r_pins[rp], GPIO.LOW)
 
     def get_next_signal(self):
         """ Calls do_polling until a key press is detected"""
+        print("KAYPAD GET SIGNAL")
         signal = ""
         while not signal:
             signal = self.do_polling()

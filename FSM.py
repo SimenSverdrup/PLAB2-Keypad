@@ -29,6 +29,7 @@ class FiniteStateMachine:
 
     def get_next_signal(self):
         """ Query the agent for next signal """
+        print("FSM GET SIGNAL")
         return self.KPC_pointer.get_next_signal()
 
     def run_rules(self, signal):
