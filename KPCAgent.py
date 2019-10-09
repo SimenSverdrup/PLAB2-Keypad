@@ -20,7 +20,7 @@ class KPCAgent:
         """ init """
         self.keypad_pointer = Keypad()
         self.led_board_pointer = LEDBoard()
-        FSM(self)
+        FiniteStateMachine(self)
         self.init_passcode_entry()
 
     def init_passcode_entry(self):
