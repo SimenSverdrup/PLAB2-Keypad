@@ -23,7 +23,7 @@ class KPCAgent:
         # TODO? : add more method calls
 
     def init_passcode_entry(self):
-        """ Clear the passcode-buffer and initiate a ”power up” lighting sequence on the LED Board """
+        """ Clear the passcode buffer and initiate a power up lighting sequence on the LED Board """
         self.input_buffer = ""
         self.led_board_pointer.startup_lightshow()
 
