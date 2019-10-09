@@ -1,6 +1,5 @@
 """ finite state machine """
 
-
 # TODO: remove on launch
 def example_rule_condition(state, signal):
     return state == "s0" and signal == 1
@@ -54,6 +53,7 @@ class FiniteStateMachine:
 
     def main_loop(self):
         """ The loop running the state machine until final state """
+        print("START FSM MAIN LOOP")
         self.state = "s0"
         while self.state != "s8":
             signal = self.get_next_signal

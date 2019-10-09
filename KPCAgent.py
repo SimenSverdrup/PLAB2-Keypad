@@ -2,6 +2,7 @@
 
 from Keypad import Keypad
 from LEDBoard import LEDBoard
+from FSM import FSM
 
 
 class KPCAgent:
@@ -20,6 +21,7 @@ class KPCAgent:
         print("INIT KPC")
         self.keypad_pointer = Keypad()
         self.led_board_pointer = LEDBoard()
+        FSM(self)
         self.init_passcode_entry()
         # TODO? : add more method calls
 
