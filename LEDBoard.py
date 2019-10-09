@@ -7,7 +7,7 @@ class LEDBoard:
     """ LED Board class """
     mode = None
     LED_pin_settings = []  # Helper-array to setup pin setting to light a particular LED (LED i at index i)
-    pins = [18, 23, 24]  # this is subject to change, pins[i] refers to pin i
+    pins = [16, 20, 21]  # this is subject to change, pins[i] refers to pin i
 
     def __init__(self):
         """ init """

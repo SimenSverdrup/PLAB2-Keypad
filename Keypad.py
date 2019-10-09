@@ -6,7 +6,8 @@ import RPi.GPIO as GPIO
 
 class Keypad:
     """ keypad class """
-
+    pins = [18, 23, 24, 25, 17, 27, 22]  # pins 18, 23, 24 and 25 for key rows 0, 1, 2 and 3
+                                         # pins 17, 27 and 22 for key columns 0, 1 and 2
     # TODO: class needs reconfiguration after better understanding import RPi.GPIO
 
     def __init__(self):
