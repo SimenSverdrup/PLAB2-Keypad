@@ -20,6 +20,7 @@ class FiniteStateMachine:
     def __init__(self, agent):
         """ init """
         self.KPC_pointer = agent
+        self.main_loop()
         self.add_rule(([example_rule_condition, example_rule_consequence]))
 
     def add_rule(self, new_rule):
@@ -55,7 +56,7 @@ class FiniteStateMachine:
         """ The loop running the state machine until final state """
         print("START FSM MAIN LOOP")
         self.state = "s0"
-        while self.state != "s8":
+        while self.state != "s1":
             signal = self.get_next_signal
             if signal:
                 self.run_rules(signal)

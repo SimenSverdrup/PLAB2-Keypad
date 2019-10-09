@@ -11,11 +11,9 @@ class LEDBoard:
 
     def __init__(self):
         """ init """
-        print("INIT KEYPAD")
         self.setup()
 
     def setup(self):
-        print("LED SETUP")
         """ Set the proper mode via: GPIO.setmode(GPIO.BCM)
         The pin settings corresponding to each LED should be saved in a dictionary
         or array such that when the agent requests lighting of the kth LED, your code can fetch the kth
@@ -30,7 +28,6 @@ class LEDBoard:
             [1, -1, 0],  # to light up LED 4
             [0, -1, 1]   # to light up LED 5
         ]
-        self.light_led(1, 10)
 
     def set_pin(self, pin_index, pin_state):
         if pin_state == -1:

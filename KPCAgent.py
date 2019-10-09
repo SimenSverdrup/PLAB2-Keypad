@@ -18,12 +18,10 @@ class KPCAgent:
 
     def __init__(self):
         """ init """
-        print("INIT KPC")
         self.keypad_pointer = Keypad()
         self.led_board_pointer = LEDBoard()
         FSM(self)
         self.init_passcode_entry()
-        # TODO? : add more method calls
 
     def init_passcode_entry(self):
         """ Clear the passcode buffer and initiate a power up lighting sequence on the LED Board """
