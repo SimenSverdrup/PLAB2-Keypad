@@ -64,7 +64,7 @@ class KPCAgent:
             return True
         else:
             #self.override_signal = "N"
-            self.init_passcode_entry
+            self.init_passcode_entry()
             return False
 
     def validate_passcode_change(self, new_passcode):
