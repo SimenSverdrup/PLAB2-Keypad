@@ -16,10 +16,8 @@ class Keypad:
         """ Set the mode and the row pins as outputs and the column pins as inputs """
         GPIO.setmode(GPIO.BCM)
         for rp in range(0, 4):
-            print(self.r_pins[rp])
             GPIO.setup(self.r_pins[rp], GPIO.OUT)
         for cp in range(0, 3):
-            print(self.c_pins[cp])
             GPIO.setup(self.c_pins[cp], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     def do_polling(self):

@@ -2,6 +2,7 @@
 
 # TODO: remove on launch
 def example_rule_condition(state, signal):
+    print("EXAMPLE RULE")
     return state == "s0" and signal == '1'
 
 
@@ -35,6 +36,7 @@ class FiniteStateMachine:
         """ Try each rule until one of the rules is fired """
         print("RUN RULES")
         for rule in self.FSM_rule_list:
+            print("RULE: ", rule)
             if self.apply_rule(rule, signal):
                 self.fire_rule(rule)
                 break

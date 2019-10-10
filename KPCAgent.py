@@ -32,8 +32,6 @@ class KPCAgent:
         # TODO: function need configuration, override_signal might have been misunderstood
         #  self.input_buffer should be filled here, I think
         """ Return the override-signal or query keypad for next signal """
-        print("KPC GET SIGNAL")
-
         if self.override_signal:
             return_signal = self.override_signal
             self.override_signal = None
