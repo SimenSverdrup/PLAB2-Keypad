@@ -39,6 +39,9 @@ class KPCAgent:
         else:
             return self.keypad_pointer.get_next_signal()
 
+    def set_led_id(self, Lid):
+        self.led_id = Lid
+
     def add_to_buffer(self, signal):
         """ Add signal from FSM to self.input_buffet """
         print("RUN ADD TO BUFFER: ", signal)
