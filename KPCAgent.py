@@ -40,12 +40,16 @@ class KPCAgent:
             return self.keypad_pointer.get_next_signal()
 
     def set_led_id(self, Lid):
-        self.led_id = Lid
+        self.led_id = int(Lid)
 
     def add_to_buffer(self, signal):
         """ Add signal from FSM to self.input_buffet """
-        print("RUN ADD TO BUFFER: ", signal)
         self.input_buffer += signal
+        print("BUFFER UPDATE: ", self.input_buffer)
+
+    def input_buffer_to_led_duration(self):
+        self.led_duration = int(self.input_buffer)
+        self.input_buffer = ""
 
     def verify_login(self):
         """ Check that the password just entered via the keypad matches that in the password file.
@@ -96,7 +100,7 @@ class KPCAgent:
     def light_one_led(self):
         """  Using values stored in the Lid and Ldur slots,
         call the LED Board and request that LED # Lid be turned on for Ldur seconds. """
-        self.led_board_pointer.light_led(int(self.led_id), int(self.led_duration))
+        self.led_board_pointer.light_led(self.led_id, self.led_duration)
 
     def flash_leds(self):
         """ Call the LED Board and request the flashing of all LEDs. """

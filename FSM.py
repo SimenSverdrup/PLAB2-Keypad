@@ -85,6 +85,7 @@ class FiniteStateMachine:
             self.KPC_pointer.add_to_buffer(self.signal)
             self.state = rule[1][0]
         elif rule[1][1] == 4:
+            self.KPC_pointer.input_buffer_to_led_duration()
             self.KPC_pointer.light_one_led()
             self.state = rule[1][0]       
         # TODO: implement multiple different agent actions
