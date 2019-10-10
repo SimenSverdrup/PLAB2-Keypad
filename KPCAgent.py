@@ -39,21 +39,29 @@ class KPCAgent:
         else:
             return self.keypad_pointer.get_next_signal()
 
+    def add_to_buffer(self, signal):
+        """ Add signal from FSM to self.input_buffet """
+        print("RUN ADD TO BUFFER: ", signal)
+        self.input_buffer += (signal)
+
     def verify_login(self):
         """ Check that the password just entered via the keypad matches that in the password file.
         Store the result (Y or N) in the override-signal.
         Also, this should call the LED Board to initiate the
         appropriate lighting pattern for login success or failure. """
+        print("RUN VERIFY LOGIN")
+        print("INPUT_BUFFER: ", self.input_buffer)
         f = open(self.password_path, "r")
         passcode = ""
         if f.mode == "r":
             passcode = f.readline()
         f.close()
+        print("PASSCODE: ", passcode)
         if self.input_buffer == passcode:  # the input buffer should contain the current passcode input
-            self.override_signal = "Y"
+            #self.override_signal = "Y"
             self.twinkle_all_leds()
         else:
-            self.override_signal = "N"
+            #self.override_signal = "N"
             self.flash_leds()
 
     def validate_passcode_change(self, new_passcode):
