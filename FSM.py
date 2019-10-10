@@ -54,13 +54,16 @@ class FiniteStateMachine:
     def fire_rule(self, rule):
         """ Use the consequent of a rule to set the next state of the FSM
         and call the appropriate agent action method """
-        self.state = rule[1][0]
-        print("SET STATE: ", rule[1][0])
         print("TRIGGER SIGNAL: ", rule[1][1])
         if rule[1][1] == 0:
             self.KPC_pointer.add_to_buffer(self.signal)
+            self.state = rule[1][0]
         elif rule[1][1] == 1:
-            self.KPC_pointer.verify_login()
+            login = self.KPC_pointer.verify_login()
+            if login:
+                self.state = rule[1][0]
+        print("SET STATE: ", rule[1][0])
+                
         # TODO: implement multiple different agent actions
 
     def main_loop(self):
@@ -71,5 +74,5 @@ class FiniteStateMachine:
             if self.signal:
                 print("SIGNAL: ", self.signal)
                 self.run_rules()
-            print()
+            print("\n")
         print("Final state reached.")

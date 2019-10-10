@@ -59,10 +59,13 @@ class KPCAgent:
         print("PASSCODE: ", passcode)
         if self.input_buffer == passcode:  # the input buffer should contain the current passcode input
             #self.override_signal = "Y"
-            self.twinkle_all_leds()
+            #self.twinkle_all_leds()
+            self.light_one_led(1, 5)
+            return True
         else:
             #self.override_signal = "N"
-            self.flash_leds()
+            self.init_passcode_entry
+            return False
 
     def validate_passcode_change(self, new_passcode):
         """  Check that the new password is legal. If so, write the new password in the password file.
