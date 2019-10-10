@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 class Keypad:
     """ keypad class """
     r_pins = [18, 23, 24, 25]
-    c_pins = [17, 4, 22]  # pins 18, 23, 24 and 25 for key rows 0, 1, 2 and 3
+    c_pins = [17, 27, 22]  # pins 18, 23, 24 and 25 for key rows 0, 1, 2 and 3
                                          # pins 17, 27 and 22 for key columns 0, 1 and 2
     keypad = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['*', 0, '#']]
 
