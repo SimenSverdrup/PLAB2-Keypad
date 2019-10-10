@@ -42,7 +42,7 @@ class FiniteStateMachine:
         """ Try each rule until one of the rules is fired """
         for rule in self.FSM_rule_list:
             print("RULE: ", rule)
-            if self.apply_rule(rule, self.signal):
+            if self.apply_rule(rule):
                 self.fire_rule(rule)
                 break
 
