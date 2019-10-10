@@ -70,5 +70,5 @@ class FiniteStateMachine:
             self.signal = self.get_next_signal()
             if self.signal:
                 print("SIGNAL: ", self.signal)
-                self.run_rules(self.signal)
+                self.run_rules()
         print("Final state reached.")
