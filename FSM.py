@@ -97,7 +97,12 @@ class FiniteStateMachine:
             print("CURRENT STATE: ", self.state)
             self.signal = self.get_next_signal()
             if self.signal:
-                print("SIGNAL: ", self.signal)
-                self.run_rules()
+                self.KPC_pointer.set_led_id(self.signal)
+                self.KPC_pointer.add_to_buffer('3')
+                self.KPC_pointer.input_buffer_to_led_duration()
+
+                self.KPC_pointer.light_one_led()
+                #print("SIGNAL: ", self.signal)
+                #self.run_rules()
             print("\n")
         print("Final state reached.")
