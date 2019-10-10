@@ -23,6 +23,7 @@ class FiniteStateMachine:
         self.KPC_pointer = agent
         self.main_loop()
         self.add_rule(([example_rule_condition, example_rule_consequence]))
+        print(self.FSM_rule_list)
 
     def add_rule(self, new_rule):
         """ Adds a new rule to end of FSM_rule_list """
@@ -53,7 +54,6 @@ class FiniteStateMachine:
         print("RULE FIRED")
         self.state = rule[1][0]
         print("SET STATE: ", rule[1][0])
-        return
         #if rule[1][1] == 0:
         #    self.KPC_pointer.light_one_led()
         #elif rule[1][1] == 1:
