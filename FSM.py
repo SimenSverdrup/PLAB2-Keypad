@@ -60,7 +60,7 @@ class FiniteStateMachine:
         if rule[1][1] == 0:
             self.KPC_pointer.add_to_buffer(self.signal)
         elif rule[1][1] == 1:
-            self.KPC_pointer.verify_password()
+            self.KPC_pointer.verify_login()
         # TODO: implement multiple different agent actions
 
     def main_loop(self):
