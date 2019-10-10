@@ -31,7 +31,7 @@ class Keypad:
             for cp in range(0, 3):
                 if GPIO.input(self.c_pins[cp]) == GPIO.HIGH:
                     print("FOUND HIGHS - SLEEP")
-                    #time.sleep(10)
+                    time.sleep(1000)
                     #print("DONT SLEEP")
                     if GPIO.input(self.c_pins[cp]) == GPIO.HIGH:
                         #print("SHOULD RETURN")

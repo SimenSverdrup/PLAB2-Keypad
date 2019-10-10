@@ -32,7 +32,6 @@ class LEDBoard:
     def set_pin(self, pin_index, pin_state):
         if pin_state == -1:
             GPIO.setup(self.pins[pin_index], GPIO.IN)
-            print("pin index: ", pin_index)
         else:
             GPIO.setup(self.pins[pin_index], GPIO.OUT)
             GPIO.output(self.pins[pin_index], pin_state)  # pin_state should be GPIO.HIGH or GPIO.LOW
