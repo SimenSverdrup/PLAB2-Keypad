@@ -35,8 +35,8 @@ class Keypad:
                     #print("DONT SLEEP")
                     if GPIO.input(self.c_pins[cp]) == GPIO.HIGH:
                         #print("SHOULD RETURN")
-                        print("rp: " + rp)
-                        print("cp: " + cp)
+                        print("rp: ", rp)
+                        print("cp: ", cp)
                         print(self.keypad[rp][cp])
                         return self.keypad[rp][cp]
             GPIO.output(self.r_pins[rp], GPIO.LOW)
