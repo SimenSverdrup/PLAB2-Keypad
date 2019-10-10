@@ -21,13 +21,14 @@ class FiniteStateMachine:
     def __init__(self, agent):
         """ init """
         self.KPC_pointer = agent
+        self.add_rule([example_rule_condition, example_rule_consequence])
         self.main_loop()
-        self.add_rule(([example_rule_condition, example_rule_consequence]))
-        print(self.FSM_rule_list)
 
     def add_rule(self, new_rule):
         """ Adds a new rule to end of FSM_rule_list """
+        print("RUN ADD RULE")
         self.FSM_rule_list.append(new_rule)
+        print("RULE LIST: ", self.FSM_rule_list)
 
     def get_next_signal(self):
         """ Query the agent for next signal """
