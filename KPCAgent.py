@@ -42,7 +42,7 @@ class KPCAgent:
     def add_to_buffer(self, signal):
         """ Add signal from FSM to self.input_buffet """
         print("RUN ADD TO BUFFER: ", signal)
-        self.input_buffer += (signal)
+        self.input_buffer += signal
 
     def verify_login(self):
         """ Check that the password just entered via the keypad matches that in the password file.
@@ -60,7 +60,10 @@ class KPCAgent:
         if self.input_buffer == passcode:  # the input buffer should contain the current passcode input
             #self.override_signal = "Y"
             #self.twinkle_all_leds()
-            self.light_one_led(1, 5)
+            self.led_id = 1
+            self.led_duration = 5
+            self.light_one_led()
+            self.input_buffer = ""
             return True
         else:
             #self.override_signal = "N"
@@ -87,10 +90,10 @@ class KPCAgent:
         # Return true if all characters in the string are digits
         # and there is at least one character, false otherwise
 
-    def light_one_led(self, Lid, Ldur):
+    def light_one_led(self):
         """  Using values stored in the Lid and Ldur slots,
         call the LED Board and request that LED # Lid be turned on for Ldur seconds. """
-        self.led_board_pointer.light_led(Lid, Ldur)
+        self.led_board_pointer.light_led(int(self.led_id), int(self.led_duration))
 
     def flash_leds(self):
         """ Call the LED Board and request the flashing of all LEDs. """
