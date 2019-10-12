@@ -7,12 +7,12 @@ class FiniteStateMachine:
     """ Finite state machine class """
 
     states = ["s0", "s1", "s2", "s3", "s4", "s5"]
-    #s0: login
-    #s1: [1-6] led id. 8 change password.
-    #s2: led dur
-    #s3: new passcode
-    #s4: confirm passcode change
-    #s5: logged out
+    # s0: login
+    # s1: [1-6] led id. 8 change password.
+    # s2: led dur
+    # s3: new passcode
+    # s4: confirm passcode change
+    # s5: logged out
     state = "s"
     signal = None
     kpc_pointer = None
@@ -35,20 +35,17 @@ class FiniteStateMachine:
     def run_rules(self):
         """ Try each rule until one of the rules is fired """
         for rule in self.FSM_rule_list:
-            print("RULE: ", rule)
             if self.apply_rule(rule):
                 self.fire_rule(rule)
                 break
 
     def apply_rule(self, rule):
         """ Check whether the conditions of a rule are met """
-        print("RUN APPLY RULE: ", rule[0](self.state, self.signal))
         return rule[0](self.state, self.signal)
 
     def fire_rule(self, rule):
         """ Use the consequent of a rule to set the next state of the FSM
         and call the appropriate agent action method """
-        print("TRIGGER SIGNAL: ", rule[1][1])
         if rule[1][1] == -1:
             self.kpc_pointer.init_passcode_entry()
             self.kpc_pointer.clear_end_buffer()
@@ -105,4 +102,3 @@ class FiniteStateMachine:
             if self.signal:
                 self.run_rules()
             print("\n")
-            

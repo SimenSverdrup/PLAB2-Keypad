@@ -30,15 +30,8 @@ class KPCAgent:
         self.led_board_pointer.startup_lightshow()
 
     def get_next_signal(self):
-        # TODO: function need configuration, override_signal might have been misunderstood
-        #  self.input_buffer should be filled here, I think
-        """ Return the override-signal or query keypad for next signal """
-        if self.override_signal:
-            return_signal = self.override_signal
-            self.override_signal = None
-            return return_signal
-        else:
-            return self.keypad_pointer.get_next_signal()
+        """ Return query keypad for next signal """
+        return self.keypad_pointer.get_next_signal()
 
     def set_led_id(self, Lid):
         """ set led id """
@@ -50,6 +43,7 @@ class KPCAgent:
         print("BUFFER UPDATE: ", self.input_buffer)
 
     def input_buffer_to_led_duration(self):
+        """input buffer for the led duration"""
         self.led_duration = int(self.input_buffer)
         self.input_buffer = ""
 
@@ -61,17 +55,13 @@ class KPCAgent:
         else:
             self.end_buffer += signal
             return False
-    
+
     def clear_end_buffer(self):
         """ clear self.end_buffer """
         self.end_buffer = ""
 
     def verify_login(self):
-        """ Check that the password just entered via the keypad matches that in the password file.
-        Store the result (Y or N) in the override-signal.
-        Also, this should call the LED Board to initiate the
-        appropriate lighting pattern for login success or failure. """
-        print("INPUT_BUFFER: ", self.input_buffer)
+        """ Check that the password just entered via the keypad matches that in the password file. """
         f = open(self.password_path, "r")
         passcode = ""
         if f.mode == "r":
@@ -88,9 +78,7 @@ class KPCAgent:
             return False
 
     def set_passcode_change(self):
-        """  Check that the new password is legal. If so, write the new password in the password file.
-        A legal password should be at least 4 digits long and should contain no symbols other than the digits 0-9.
-        As in verify login, this should use the LED Board to signal success or failure in changing the password. """
+        """  Hold the new password for confirmation. """
         valid_passcode = self.is_legal_passcode(self.input_buffer)
         if valid_passcode:
             self.change_passcode_buffer = self.input_buffer
@@ -105,9 +93,7 @@ class KPCAgent:
             return False
 
     def validate_passcode_change(self):
-        """  Check that the new password is legal. If so, write the new password in the password file.
-        A legal password should be at least 4 digits long and should contain no symbols other than the digits 0-9.
-        As in verify login, this should use the LED Board to signal success or failure in changing the password. """
+        """  Check that the new password is legal. If so, write the new password in the password file."""
         validate_passcode = (self.change_passcode_buffer == self.input_buffer)
         if validate_passcode:
             f = open(self.password_path, "w")  # open file for writing
@@ -127,10 +113,8 @@ class KPCAgent:
 
     def is_legal_passcode(self, passcode):
         """ Returns true if passcode is legal, false if not.
-         A legal password should be at least 4 digits long and should contain no symbols other than the digits 0-9."""
+         A legal password should be at least 4 digits long."""
         return (len(passcode) >= 4) and passcode.isdigit()
-        # Return true if all characters in the string are digits
-        # and there is at least one character, false otherwise
 
     def light_one_led(self):
         """  Using values stored in the Lid and Ldur slots,
