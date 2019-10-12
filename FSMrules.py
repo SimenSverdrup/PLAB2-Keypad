@@ -1,3 +1,4 @@
+""" the rules for the final state machine """
 
 def init_rule_condition(state, signal):
     """ type password"""
