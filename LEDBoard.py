@@ -65,7 +65,7 @@ class LEDBoard:
     def twinkle_all_leds(self):
         """  The lightshow to run when the user successfully authenticates """
         for rounds in range(50):  # probably have to fine-tune the amount of rounds
-            self.light_led(rand.randint(0, 5), 0.01)  # probably have to fine-tune the input-time
+            self.light_led(rand.randint(0, 5), 0.05)  # probably have to fine-tune the input-time
 
     def startup_lightshow(self):
         """ The lightshow sequence to run when the keypad is started """
