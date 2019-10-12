@@ -119,6 +119,7 @@ class KPCAgent:
             return True
         else:
             self.flash_leds()
+            self.input_buffer = ""
             return False
 
     def is_legal_passcode(self, passcode):

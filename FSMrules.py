@@ -61,6 +61,7 @@ class FSMrules:
 
     def __init__(self, FSM):
         """ init """
+        FSM.add_rule([end_rule_condition, end_rule_consequence])
         FSM.add_rule([state_0_rule_condition, state_0_rule_consequence])
         FSM.add_rule([state_0_rule_condition_2, state_0_rule_consequence_2])
         FSM.add_rule([state_1_rule_condition, state_1_rule_consequence])
@@ -71,4 +72,3 @@ class FSMrules:
         FSM.add_rule([state_3_rule_condition_2, state_3_rule_consequence_2])
         FSM.add_rule([state_4_rule_condition, state_4_rule_consequence])
         FSM.add_rule([state_4_rule_condition_2, state_4_rule_consequence_2])
-        FSM.add_rule([end_rule_condition, end_rule_consequence])
