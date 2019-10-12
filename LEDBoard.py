@@ -23,10 +23,12 @@ class LEDBoard:
         self.LED_pin_settings = [  # 0=LOW, 1=HIGH and -1=INPUT
             [1, 0, -1],  # to light up LED 0
             [0, 1, -1],  # to light up LED 1
-            [-1, 1, 0],  # to light up LED 2
-            [-1, 0, 1],  # to light up LED 3
-            [1, -1, 0],  # to light up LED 4
             [0, -1, 1]   # to light up LED 5
+            [-1, 0, 1],  # to light up LED 3
+            [-1, 1, 0],  # to light up LED 2
+            #[-1, 0, 1],  # to light up LED 3
+            [1, -1, 0],  # to light up LED 4
+            #[0, -1, 1]   # to light up LED 5
         ]
 
     def set_pin(self, pin_index, pin_state):

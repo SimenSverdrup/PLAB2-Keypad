@@ -42,6 +42,7 @@ class KPCAgent:
             return self.keypad_pointer.get_next_signal()
 
     def set_led_id(self, Lid):
+        """ set led id """
         self.led_id = int(Lid) - 1
 
     def add_to_buffer(self, signal):
