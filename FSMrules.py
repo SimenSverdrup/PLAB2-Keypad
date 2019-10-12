@@ -57,7 +57,7 @@ state_4_rule_consequence_2 = ["s1", 7]
 def end_rule_condition(state, signal):
     #test end
     return signal == '#'
-end_rule_consequence = ["s5", 8]
+end_rule_consequence = ["s", 8]
 
 
 class FSMrules:

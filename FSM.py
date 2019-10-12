@@ -99,10 +99,10 @@ class FiniteStateMachine:
     def main_loop(self):
         """ The loop running the state machine until final state """
         self.state = "s"
-        while self.state != "s5":
+        while True:
             print("CURRENT STATE: ", self.state)
             self.signal = self.get_next_signal()
             if self.signal:
                 self.run_rules()
             print("\n")
-        print("Final state reached.")
+            
