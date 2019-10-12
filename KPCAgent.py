@@ -77,16 +77,12 @@ class KPCAgent:
         f.close()
         print("PASSCODE: ", passcode)
         if self.input_buffer == passcode:  # the input buffer should contain the current passcode input
-            #self.override_signal = "Y"
-            #self.twinkle_all_leds()
-            self.led_id = 1
-            self.led_duration = 5
-            self.light_one_led()
+            self.twinkle_all_leds()
             self.input_buffer = ""
             return True
         else:
-            #self.override_signal = "N"
             self.init_passcode_entry()
+            self.flash_leds
             return False
 
     def set_passcode_change(self):
@@ -96,7 +92,10 @@ class KPCAgent:
         valid_passcode = self.is_legal_passcode(self.input_buffer)
         if valid_passcode:
             self.change_passcode_buffer = self.input_buffer
-            self.twinkle_all_leds()
+            self.led_id = 3
+            self.led_duration = 2.5
+            self.light_one_led()
+            #self.twinkle_all_leds()
             self.input_buffer = ""
             return True
         else:
