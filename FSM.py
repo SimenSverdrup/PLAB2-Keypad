@@ -1,27 +1,6 @@
 """ finite state machine """
 
-
-def state_0_rule_condition(state, signal):
-    return state == "s0" and signal != '*'
-
-def state_0_rule_condition_2(state, signal):
-    return state == 's0' and signal == '*'
-
-def state_1_rule_condition(state, signal):
-    return state == 's1' and signal in ['1', '2', '3', '4', '5', '6']
-
-def state_2_rule_condition(state, signal):
-    return state == 's2' and signal not in ['*', '#']
-   
-def state_2_rule_condition_2(state, signal):
-    return state == 's2' and signal == '*'
-  
-
-state_0_rule_consequence = ["s0", 0]
-state_0_rule_consequence_2 = ["s1", 1]
-state_1_rule_consequence = ["s2", 2]
-state_2_rule_consequence = ["s2", 3]
-state_2_rule_consequence_2 = ["s1", 4]
+from FSMrules import FSMrules
 
 
 class FiniteStateMachine:
@@ -36,12 +15,7 @@ class FiniteStateMachine:
     def __init__(self, agent):
         """ init """
         self.KPC_pointer = agent
-        self.add_rule([state_0_rule_condition, state_0_rule_consequence])
-        self.add_rule([state_0_rule_condition_2, state_0_rule_consequence_2])
-        self.add_rule([state_1_rule_condition, state_1_rule_consequence])
-        self.add_rule([state_2_rule_condition, state_2_rule_consequence])
-        self.add_rule([state_2_rule_condition_2, state_2_rule_consequence_2])
-        #TODO: add multiple rules
+        FSMrules(self)
         self.main_loop()
 
     def add_rule(self, new_rule):
@@ -69,7 +43,6 @@ class FiniteStateMachine:
         """ Use the consequent of a rule to set the next state of the FSM
         and call the appropriate agent action method """
         print("TRIGGER SIGNAL: ", rule[1][1])
-        print("MAYBE NEW STATE: ", rule[1][0])
 
         if rule[1][1] == 0:
             self.KPC_pointer.add_to_buffer(self.signal)
@@ -87,8 +60,24 @@ class FiniteStateMachine:
         elif rule[1][1] == 4:
             self.KPC_pointer.input_buffer_to_led_duration()
             self.KPC_pointer.light_one_led()
-            self.state = rule[1][0]       
-        # TODO: implement multiple different agent actions
+            self.state = rule[1][0]
+        elif rule[1][1] == 5:
+            self.KPC_pointer.init_passcode_entry()
+            self.state = rule[1][0]
+        elif rule[1][1] == 6:
+            valid_passcode = self.KPC_pointer.set_passcode_change()
+            if valid_passcode:
+                self.state = rule[1][0]   
+        elif rule[1][1] == 7:
+            validated_passcode = self.KPC_pointer.validate_passcode_change()
+            if validated_passcode:
+                self.state = rule[1][0]     
+            else:
+                self.state = "s3" 
+        elif rule[1][1] == 8:
+            end_session = self.KPC_pointer.test_end(self.signal)
+            if end_session:
+                self.state = rule[1][0]
 
     def main_loop(self):
         """ The loop running the state machine until final state """

@@ -11,6 +11,8 @@ class KPCAgent:
     keypad_pointer = None
     led_board_pointer = None
     input_buffer = None
+    change_passcode_buffer = None
+    end_buffer = None
     password_path = "password.txt"
     override_signal = None
     led_id = None
@@ -51,6 +53,15 @@ class KPCAgent:
         self.led_duration = int(self.input_buffer)
         self.input_buffer = ""
 
+    def test_end(self, signal):
+        """ end session """
+        if(len(self.end_buffer) > 0):
+            self.shutdown_lightshow()
+            return True
+        else:
+            self.end_buffer += signal
+            return False
+
     def verify_login(self):
         """ Check that the password just entered via the keypad matches that in the password file.
         Store the result (Y or N) in the override-signal.
@@ -77,18 +88,38 @@ class KPCAgent:
             self.init_passcode_entry()
             return False
 
-    def validate_passcode_change(self, new_passcode):
+    def set_passcode_change(self):
         """  Check that the new password is legal. If so, write the new password in the password file.
         A legal password should be at least 4 digits long and should contain no symbols other than the digits 0-9.
         As in verify login, this should use the LED Board to signal success or failure in changing the password. """
-        if self.is_legal_passcode(new_passcode):
-            f = open(self.password_path, "w")  # open file for writing
-            if f.mode == "w":
-                f.write(new_passcode)
-            f.close()
+        valid_passcode = self.is_legal_passcode(self.input_buffer)
+        if valid_passcode:
+            self.change_passcode_buffer = self.input_buffer
             self.twinkle_all_leds()
+            self.input_buffer = ""
+            return True
         else:
             self.flash_leds()
+            self.input_buffer = ""
+            return False
+
+    def validate_passcode_change(self):
+        """  Check that the new password is legal. If so, write the new password in the password file.
+        A legal password should be at least 4 digits long and should contain no symbols other than the digits 0-9.
+        As in verify login, this should use the LED Board to signal success or failure in changing the password. """
+        validate_passcode = (self.change_passcode_buffer == self.input_buffer)
+        if validate_passcode:
+            f = open(self.password_path, "w")  # open file for writing
+            if f.mode == "w":
+                f.write(self.input_buffer)
+            f.close()
+            self.twinkle_all_leds()
+            self.change_passcode_buffer = ""
+            self.input_buffer = ""
+            return True
+        else:
+            self.flash_leds()
+            return False
 
     def is_legal_passcode(self, passcode):
         """ Returns true if passcode is legal, false if not.

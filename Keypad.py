@@ -3,7 +3,6 @@
 import time
 import RPi.GPIO as GPIO
 
-
 class Keypad:
     """ keypad class """
     r_pins = [18, 23, 24, 25]   # pins 18, 23, 24 and 25 for key rows 0, 1, 2 and 3
