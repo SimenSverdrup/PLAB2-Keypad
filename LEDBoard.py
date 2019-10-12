@@ -59,7 +59,7 @@ class LEDBoard:
         for times in range(3):  # flash all the LEDs three times on and off
             for rounds in range(100):  # probably have to fine-tune the amount of rounds
                 for led in range(6):
-                    self.light_led(led, 0.005)  # probably have to fine-tune the input-time
+                    self.light_led(led, 0.001)  # probably have to fine-tune the input-time
             time.sleep(0.4)  # probably have to fine-tune the time between flashes
 
     def twinkle_all_leds(self):
