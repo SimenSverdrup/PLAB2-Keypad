@@ -68,7 +68,6 @@ class KPCAgent:
         Store the result (Y or N) in the override-signal.
         Also, this should call the LED Board to initiate the
         appropriate lighting pattern for login success or failure. """
-        print("RUN VERIFY LOGIN")
         print("INPUT_BUFFER: ", self.input_buffer)
         f = open(self.password_path, "r")
         passcode = ""
@@ -81,8 +80,8 @@ class KPCAgent:
             self.input_buffer = ""
             return True
         else:
-            self.init_passcode_entry()
             self.flash_leds()
+            self.input_buffer = ""
             return False
 
     def set_passcode_change(self):
