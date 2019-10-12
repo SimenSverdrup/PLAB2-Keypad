@@ -57,15 +57,15 @@ class LEDBoard:
         The more LEDs you use when it comes to making it appear that more than one LED is on at a time,
         the less time the LED will actually be lit, and the dimmer the LEDs will become."""
         for times in range(3):  # flash all the LEDs three times on and off
-            for rounds in range(50):  # probably have to fine-tune the amount of rounds
+            for rounds in range(100):  # probably have to fine-tune the amount of rounds
                 for led in range(6):
-                    self.light_led(led, 0.02)  # probably have to fine-tune the input-time
+                    self.light_led(led, 0.005)  # probably have to fine-tune the input-time
             time.sleep(0.4)  # probably have to fine-tune the time between flashes
 
     def twinkle_all_leds(self):
         """  The lightshow to run when the user successfully authenticates """
-        for rounds in range(40):  # probably have to fine-tune the amount of rounds
-            self.light_led(rand.randint(0, 5), 0.2)  # probably have to fine-tune the input-time
+        for rounds in range(50):  # probably have to fine-tune the amount of rounds
+            self.light_led(rand.randint(0, 5), 0.01)  # probably have to fine-tune the input-time
 
     def startup_lightshow(self):
         """ The lightshow sequence to run when the keypad is started """
