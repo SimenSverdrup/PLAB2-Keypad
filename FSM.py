@@ -51,32 +51,41 @@ class FiniteStateMachine:
         print("TRIGGER SIGNAL: ", rule[1][1])
         if rule[1][1] == -1:
             self.kpc_pointer.init_passcode_entry()
+            self.kpc_pointer.clear_end_buffer()
             self.state = rule[1][0]
         elif rule[1][1] == 0:
             self.kpc_pointer.add_to_buffer(self.signal)
+            self.kpc_pointer.clear_end_buffer()
             self.state = rule[1][0]
         elif rule[1][1] == 1:
             login = self.kpc_pointer.verify_login()
+            self.kpc_pointer.clear_end_buffer()
             if login:
                 self.state = rule[1][0]
         elif rule[1][1] == 2:
             self.kpc_pointer.set_led_id(self.signal)
+            self.kpc_pointer.clear_end_buffer()
             self.state = rule[1][0]
         elif rule[1][1] == 3:
             self.kpc_pointer.add_to_buffer(self.signal)
+            self.kpc_pointer.clear_end_buffer()
             self.state = rule[1][0]
         elif rule[1][1] == 4:
             self.kpc_pointer.input_buffer_to_led_duration()
+            self.kpc_pointer.clear_end_buffer()
             self.kpc_pointer.light_one_led()
             self.state = rule[1][0]
         elif rule[1][1] == 5:
             self.kpc_pointer.init_passcode_entry()
+            self.kpc_pointer.clear_end_buffer()
             self.state = rule[1][0]
         elif rule[1][1] == 6:
+            self.kpc_pointer.clear_end_buffer()
             valid_passcode = self.kpc_pointer.set_passcode_change()
             if valid_passcode:
                 self.state = rule[1][0]
         elif rule[1][1] == 7:
+            self.kpc_pointer.clear_end_buffer()
             validated_passcode = self.kpc_pointer.validate_passcode_change()
             if validated_passcode:
                 self.state = rule[1][0]

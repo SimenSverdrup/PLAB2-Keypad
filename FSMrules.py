@@ -2,7 +2,7 @@
 def init_rule_condition(state, signal):
     #type password
     return state == "s"
-state_0_rule_consequence = ["s0", -1]
+init_rule_consequence = ["s0", -1]
 
 def state_0_rule_condition(state, signal):
     #type password

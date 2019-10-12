@@ -61,6 +61,10 @@ class KPCAgent:
         else:
             self.end_buffer += signal
             return False
+    
+    def clear_end_buffer(self):
+        """ clear self.end_buffer """
+        self.end_buffer = ""
 
     def verify_login(self):
         """ Check that the password just entered via the keypad matches that in the password file.
