@@ -1,4 +1,5 @@
+""" main """
 
 from KPCAgent import KPCAgent
 
-agent = KPCAgent()
+AGENT = KPCAgent()

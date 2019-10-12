@@ -6,15 +6,21 @@ from FSMrules import FSMrules
 class FiniteStateMachine:
     """ Finite state machine class """
 
-    states = ["s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"]
+    states = ["s0", "s1", "s2", "s3", "s4", "s5"]
+    #s0: login
+    #s1: [1-6] led id. 8 change password.
+    #s2: led dur
+    #s3: new passcode
+    #s4: confirm passcode change
+    #s5: logged out
     state = "s0"
     signal = None
-    KPC_pointer = None
+    kpc_pointer = None
     FSM_rule_list = []
 
     def __init__(self, agent):
         """ init """
-        self.KPC_pointer = agent
+        self.kpc_pointer = agent
         FSMrules(self)
         self.main_loop()
 
@@ -24,7 +30,7 @@ class FiniteStateMachine:
 
     def get_next_signal(self):
         """ Query the agent for next signal """
-        return self.KPC_pointer.get_next_signal()
+        return self.kpc_pointer.get_next_signal()
 
     def run_rules(self):
         """ Try each rule until one of the rules is fired """
@@ -43,46 +49,45 @@ class FiniteStateMachine:
         """ Use the consequent of a rule to set the next state of the FSM
         and call the appropriate agent action method """
         print("TRIGGER SIGNAL: ", rule[1][1])
-
         if rule[1][1] == 0:
-            self.KPC_pointer.add_to_buffer(self.signal)
+            self.kpc_pointer.add_to_buffer(self.signal)
             self.state = rule[1][0]
         elif rule[1][1] == 1:
-            login = self.KPC_pointer.verify_login()
+            login = self.kpc_pointer.verify_login()
             if login:
-                self.state = rule[1][0]  
+                self.state = rule[1][0]
         elif rule[1][1] == 2:
-            self.KPC_pointer.set_led_id(self.signal)
-            self.state = rule[1][0]     
+            self.kpc_pointer.set_led_id(self.signal)
+            self.state = rule[1][0]
         elif rule[1][1] == 3:
-            self.KPC_pointer.add_to_buffer(self.signal)
+            self.kpc_pointer.add_to_buffer(self.signal)
             self.state = rule[1][0]
         elif rule[1][1] == 4:
-            self.KPC_pointer.input_buffer_to_led_duration()
-            self.KPC_pointer.light_one_led()
+            self.kpc_pointer.input_buffer_to_led_duration()
+            self.kpc_pointer.light_one_led()
             self.state = rule[1][0]
         elif rule[1][1] == 5:
-            self.KPC_pointer.init_passcode_entry()
+            self.kpc_pointer.init_passcode_entry()
             self.state = rule[1][0]
         elif rule[1][1] == 6:
-            valid_passcode = self.KPC_pointer.set_passcode_change()
+            valid_passcode = self.kpc_pointer.set_passcode_change()
             if valid_passcode:
-                self.state = rule[1][0]   
+                self.state = rule[1][0]
         elif rule[1][1] == 7:
-            validated_passcode = self.KPC_pointer.validate_passcode_change()
+            validated_passcode = self.kpc_pointer.validate_passcode_change()
             if validated_passcode:
-                self.state = rule[1][0]     
+                self.state = rule[1][0]
             else:
-                self.state = "s3" 
+                self.state = "s3"
         elif rule[1][1] == 8:
-            end_session = self.KPC_pointer.test_end(self.signal)
+            end_session = self.kpc_pointer.test_end(self.signal)
             if end_session:
                 self.state = rule[1][0]
 
     def main_loop(self):
         """ The loop running the state machine until final state """
         self.state = "s0"
-        while self.state != "s4":
+        while self.state != "s5":
             print("CURRENT STATE: ", self.state)
             self.signal = self.get_next_signal()
             if self.signal:
