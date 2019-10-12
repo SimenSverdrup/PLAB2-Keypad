@@ -82,7 +82,7 @@ class KPCAgent:
             return True
         else:
             self.init_passcode_entry()
-            self.flash_leds
+            self.flash_leds()
             return False
 
     def set_passcode_change(self):
