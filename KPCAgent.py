@@ -12,7 +12,7 @@ class KPCAgent:
     led_board_pointer = None
     input_buffer = None
     change_passcode_buffer = None
-    end_buffer = None
+    end_buffer = ""
     password_path = "password.txt"
     override_signal = None
     led_id = None
@@ -95,7 +95,6 @@ class KPCAgent:
             self.led_id = 3
             self.led_duration = 2.5
             self.light_one_led()
-            #self.twinkle_all_leds()
             self.input_buffer = ""
             return True
         else:
@@ -113,7 +112,9 @@ class KPCAgent:
             if f.mode == "w":
                 f.write(self.input_buffer)
             f.close()
-            self.twinkle_all_leds()
+            self.led_id = 4
+            self.led_duration = 2.5
+            self.light_one_led()
             self.change_passcode_buffer = ""
             self.input_buffer = ""
             return True
