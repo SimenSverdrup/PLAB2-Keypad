@@ -13,7 +13,7 @@ class FiniteStateMachine:
     #s3: new passcode
     #s4: confirm passcode change
     #s5: logged out
-    state = "s0"
+    state = "s"
     signal = None
     kpc_pointer = None
     FSM_rule_list = []
@@ -49,7 +49,10 @@ class FiniteStateMachine:
         """ Use the consequent of a rule to set the next state of the FSM
         and call the appropriate agent action method """
         print("TRIGGER SIGNAL: ", rule[1][1])
-        if rule[1][1] == 0:
+        if rule[1][1] == -1:
+            self.kpc_pointer.init_passcode_entry()
+            self.state = rule[1][0]
+        elif rule[1][1] == 0:
             self.kpc_pointer.add_to_buffer(self.signal)
             self.state = rule[1][0]
         elif rule[1][1] == 1:
@@ -86,12 +89,11 @@ class FiniteStateMachine:
 
     def main_loop(self):
         """ The loop running the state machine until final state """
-        self.state = "s0"
+        self.state = "s"
         while self.state != "s5":
             print("CURRENT STATE: ", self.state)
             self.signal = self.get_next_signal()
             if self.signal:
-                print("SIGNAL: ", self.signal)
                 self.run_rules()
             print("\n")
         print("Final state reached.")

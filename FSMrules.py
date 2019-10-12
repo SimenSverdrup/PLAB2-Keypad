@@ -1,4 +1,8 @@
 
+def init_rule_condition(state, signal):
+    #type password
+    return state == "s"
+state_0_rule_consequence = ["s0", -1]
 
 def state_0_rule_condition(state, signal):
     #type password
@@ -61,6 +65,7 @@ class FSMrules:
 
     def __init__(self, FSM):
         """ init """
+        FSM.add_rule([init_rule_condition, init_rule_consequence])
         FSM.add_rule([end_rule_condition, end_rule_consequence])
         FSM.add_rule([state_0_rule_condition, state_0_rule_consequence])
         FSM.add_rule([state_0_rule_condition_2, state_0_rule_consequence_2])
